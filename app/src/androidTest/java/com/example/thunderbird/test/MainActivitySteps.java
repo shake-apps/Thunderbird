@@ -17,7 +17,7 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
-@CucumberOptions(features = "features")
+@CucumberOptions(format = { "pretty" }, features = "features")
 public class MainActivitySteps extends ActivityInstrumentationTestCase2
 	<MainActivity> {
 
