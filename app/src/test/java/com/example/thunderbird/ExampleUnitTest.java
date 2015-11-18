@@ -1,6 +1,7 @@
 package com.example.thunderbird;
 
 import org.junit.Test;
+import static org.javalite.test.jspec.JSpec.*;
 
 import static org.junit.Assert.*;
 
@@ -10,6 +11,8 @@ import static org.junit.Assert.*;
 public class ExampleUnitTest {
 	@Test
 	public void addition_isCorrect() throws Exception {
-		assertEquals(4, 2 + 2);
+//		assertEquals(4, 2 + 2);
+//		assertTrue(false);
+		it(4 + 2).shouldBeEqual(6);
 	}
 }
