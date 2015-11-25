@@ -19,31 +19,24 @@ android:
     - extra-android-m2repository
     - addon-google_apis-google-19
 
-    # Specify at least one system image,
-    # if you need to run emulator(s) during your tests
-    - sys-img-armeabi-v7a-android-23 #Marshmallow 6.0
-    - sys-img-armeabi-v7a-android-22 #Lollipop 5.1
-    - sys-img-armeabi-v7a-android-19 #KitKat 4.4
-    - sys-img-armeabi-v7a-android-16 #JellyBean 4.1.x
-
 env:
   global:
    # install timeout in minutes (2 minutes by default)
     - ADB_INSTALL_TIMEOUT=8
 env:
     matrix:
-      - ANDROID_SDKS=android-23    ANDROID_TARGET=android-23  ANDROID_ABI=armeabi-v7a
-      - ANDROID_SDKS=android-23    ANDROID_TARGET=android-22  ANDROID_ABI=armeabi-v7a
-      - ANDROID_SDKS=android-23    ANDROID_TARGET=android-19  ANDROID_ABI=armeabi-v7a
-      - ANDROID_SDKS=android-23    ANDROID_TARGET=android-16  ANDROID_ABI=armeabi-v7a
+      - ANDROID_TARGET=android-23  ANDROID_ABI=armeabi-v7a ANDROID_ABI_IMAGE=sys-img-armeabi-v7a-android-23 #Marshmallow 6.0
+      - ANDROID_TARGET=android-22  ANDROID_ABI=armeabi-v7a ANDROID_ABI_IMAGE=sys-img-armeabi-v7a-android-21 #Lollipop 5.1
+      - ANDROID_TARGET=android-19  ANDROID_ABI=armeabi-v7a ANDROID_ABI_IMAGE=sys-img-armeabi-v7a-android-19 #KitKat 4.4
+      - ANDROID_TARGET=android-16  ANDROID_ABI=armeabi-v7a ANDROID_ABI_IMAGE=sys-img-armeabi-v7a-android-16 #JellyBean 4.1.x
 
 # Emulator Management: Create, Start and Wait
 before_script:
+  - android update sdk --no-ui --all --filter $ANDROID_ABI_IMAGE
   - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
   - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
 
 script:
-  - android list target
-  - ./gradlew connectedAndroidTest
+  - ./gradlew connectedCheck
