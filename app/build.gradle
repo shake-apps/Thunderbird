@@ -2,11 +2,11 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    buildToolsVersion "23.0.2"
 
     defaultConfig {
         applicationId "com.example.thunderbird"
-        minSdkVersion 23
+        minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -36,6 +36,15 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
     }
+
+    packagingOptions.excludes = [
+            'META-INF/DEPENDENCIES',
+            'META-INF/NOTICE',
+            'META-INF/LICENSE',
+            'META-INF/LICENSE.txt',
+            'META-INF/NOTICE.txt',
+            'LICENSE.txt'
+    ]
 }
 
 dependencies {
